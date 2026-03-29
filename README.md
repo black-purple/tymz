@@ -8,39 +8,61 @@ Price: $0+ (Pay what you want)
 
 Stop Googling "time in London, time in Tokyo, time in Chicago..."
 
-**Tymz** is a native, lightweight macOS utility that lives exclusively in your menu bar. Whether you are working with a remote team, coordinating with international clients, or keeping track of family abroad, seeing their time should be instant—not a browser search away.
+**Tymz** is a native, lightweight macOS utility that lives exclusively in your menu bar. Whether you are working with a remote team, coordinating with international clients, or keeping track of family abroad, seeing their time should be instant — not a browser search away.
 
 Designed to feel right at home on macOS, it offers a clean, native aesthetic that doesn't clutter your dock.
 
-Key Features
+---
 
-Ticker Mode: Display your most important time zones directly in your menu bar (e.g., "🇫🇷 Paris 2:00 PM | 🇯🇵 Tokyo 10:00 PM").
+## Features
 
+**Menu Bar Ticker**
+Display one or more time zones directly in your menu bar — e.g. 🇫🇷 Paris 2:15 PM | 🇯🇵 Tokyo 10:15 PM. Toggle between ticker mode and icon-only mode.
 
+**World Clocks List**
+Click the menu bar icon to see every saved clock with current time and time difference from your location (e.g. +6 hrs, −3h 30m).
 
-- Instant Access: Click the icon to see a full list of your saved clocks with automatic time difference calculations (e.g., "+6 hrs").
-- Smart Search: Easily find cities by name or country (e.g., search "Japan" to find "Tokyo"). 
-- Emoji Flags: Beautiful, accurate flag emojis for every country.
-- Native Performance: Built with SwiftUI for macOS 13+. Uses zero CPU when idle.
-- Efficient: Lives only in the menu bar—no annoying Dock icon.
+**Flag Emoji**
+Each clock shows the correct country flag automatically.
 
-System Requirements
+**Smart Search**
+Find cities by name, country, or timezone abbreviation (PST, CET, JST…).
 
-- macOS 14.6 (Sonoma) or later.
-- Apple Silicon (from M1 to M5) or Intel Mac.
+**Rename Clocks**
+Give any clock a custom label directly in Settings.
 
+**Duplicate Timezones**
+Add the same city more than once — names are auto-suffixed (Paris, Paris 2, Paris 3…).
 
+**Drag to Reorder**
+Arrange clocks in any order by dragging in Settings.
 
-⚠️ Installation Note
+**Notification Center Widget**
+See your clocks from the Notification Center without opening the menu.
 
-This app is signed with an Ad-Hoc certificate (Independent Developer).
+**Menu Bar Appearance Controls**
+Independently toggle the emoji flag, set name, city, and country in the ticker.
 
-When you first open the app, you must follow these steps:
+**Launch at Login**
+Tymz starts automatically when you log in.
 
-1. Move the app to your Applications folder.
+**Automatic Updates**
+Built-in Sparkle updater — click "Check for Updates…" in the menu to stay current.
 
-2. Right-Click (or Control-Click) the app icon and select Open.
+---
 
-3. Click "Open" in the popup dialog.
+## System Requirements
 
-(You only need to do this once, when you first try to run the app).
+- macOS 14.6 (Sonoma) or later
+- Apple Silicon (M1 and later) or Intel Mac
+
+---
+
+## Installation
+
+1. Download `tymz.zip` and unzip it
+2. Move `tymz.app` to your Applications folder
+3. Right-click (or Control-click) the app and select **Open**
+4. Click **Open** in the dialog
+
+You only need to do this once. After that, Tymz launches normally.
