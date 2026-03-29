@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
+  <channel>
+    <title>Tymz</title>
+    <link>https://black-purple.github.io/tymz/appcast.xml</link>
+    <description>Tymz update feed</description>
+  </channel>
+</rss>
