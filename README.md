@@ -22,6 +22,9 @@ Display one or more time zones directly in your menu bar — e.g. 🇫🇷 Paris
 **World Clocks List**
 Click the menu bar icon to see every saved clock with current time and time difference from your location (e.g. +6 hrs, −3h 30m).
 
+**Right-Click Context Menu**
+Right-click the menu bar icon to access Settings, Check for Updates, or Quit — without opening the clocks window.
+
 **Flag Emoji**
 Each clock shows the correct country flag automatically.
 
@@ -37,8 +40,11 @@ Add the same city more than once — names are auto-suffixed (Paris, Paris 2, Pa
 **Drag to Reorder**
 Arrange clocks in any order by dragging in Settings.
 
+**Per-Clock Menu Bar Toggle**
+Choose which clocks appear in the menu bar ticker independently.
+
 **Notification Center Widget**
-See your clocks from the Notification Center without opening the menu.
+See your clocks from the Notification Center without opening the menu. Shows day offset (+1d) when a timezone crosses into the next or previous day.
 
 **Menu Bar Appearance Controls**
 Independently toggle the emoji flag, set name, city, and country in the ticker.
@@ -47,7 +53,7 @@ Independently toggle the emoji flag, set name, city, and country in the ticker.
 Tymz starts automatically when you log in.
 
 **Automatic Updates**
-Built-in Sparkle updater — click "Check for Updates…" in the menu to stay current.
+Built-in Sparkle updater — click "Check for Updates…" in the right-click menu to stay current.
 
 ---
 
