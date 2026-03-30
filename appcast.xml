@@ -5,6 +5,16 @@
     <link>https://black-purple.github.io/tymz/appcast.xml</link>
     <description>Tymz update feed</description>
     <item>
+      <title>Version 1.2</title>
+      <sparkle:version>1.2</sparkle:version>
+      <pubDate>Mon, 30 Mar 2026 21:22:51 +0000</pubDate>
+      <enclosure
+        url="https://github.com/black-purple/tymz/releases/download/v1.2/tymz.zip"
+        sparkle:edSignature="VcJfcJNTWmTEVla1jWBjVziH+9fqgWj5iEpmmdNxA9F5uIwFLktgumbAG3jxqD4tSiBb6nmwzPOd8dnsaCt/Aw=="
+        length="2946977"
+        type="application/octet-stream" />
+    </item>
+    <item>
       <title>Version 1.1</title>
       <sparkle:version>1.1</sparkle:version>
       <pubDate>Mon, 30 Mar 2026 03:35:00 +0000</pubDate>

@@ -14,16 +14,30 @@ Designed to feel right at home on macOS, it offers a clean, native aesthetic tha
 
 ---
 
+## What's New in v1.2
+
+- **Font weight controls** — set the label and time text independently to Light, Regular, or Bold. Live preview updates in real time as you adjust.
+- **Dock icon on Settings** — the app icon appears in the Dock while Settings is open, then disappears when you close it. Toggle the behaviour from the General tab.
+- **Backup tab** — groundwork for local backup and restore is in place; full file export/import is coming in the next release.
+
+---
+
 ## Features
 
 **Menu Bar Ticker**
 Display one or more time zones directly in your menu bar — e.g. 🇫🇷 Paris 2:15 PM | 🇯🇵 Tokyo 10:15 PM. Toggle between ticker mode and icon-only mode.
 
+**Font Weight Controls**
+Set the clock label and the time independently to Light, Regular, or Bold. The live preview in Settings updates instantly.
+
 **World Clocks List**
 Click the menu bar icon to see every saved clock with current time and time difference from your location (e.g. +6 hrs, −3h 30m).
 
 **Right-Click Context Menu**
-Right-click the menu bar icon to access Settings, Check for Updates, or Quit — without opening the clocks window.
+Right-click the menu bar icon to access Settings, Check for Updates, Back Up to File, or Quit — without opening the clocks window.
+
+**Dock Icon on Settings**
+When you open Settings the app icon appears in the Dock so you can Cmd-Tab to it. Closes cleanly when you dismiss Settings. Toggle from General → Startup.
 
 **Flag Emoji**
 Each clock shows the correct country flag automatically.
@@ -54,6 +68,12 @@ Tymz starts automatically when you log in.
 
 **Automatic Updates**
 Built-in Sparkle updater — click "Check for Updates…" in the right-click menu to stay current.
+
+---
+
+## Coming Soon
+
+- **Local backup & restore** — export your clocks to a JSON file and restore from any device.
 
 ---
 
