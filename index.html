@@ -7,208 +7,884 @@
   <link rel="icon" href="icon.png" type="image/png" />
   <style>
     :root {
-      --bg: #f5f5f7;
-      --card: #ffffff;
-      --text: #1d1d1f;
-      --sub: #6e6e73;
-      --border: #d2d2d7;
-      --accent: #0071e3;
-      --secondary-bg: #f5f5f7;
-      --secondary-border: #d2d2d7;
+      --bg: #000000;
+      --surface: #111111;
+      --surface-2: #1c1c1e;
+      --surface-3: #2c2c2e;
+      --text: #f5f5f7;
+      --text-2: #86868b;
+      --text-3: #48484a;
+      --accent: #2997ff;
+      --accent-glow: rgba(41, 151, 255, 0.3);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-2: rgba(255, 255, 255, 0.14);
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #000000;
-        --card: #1c1c1e;
-        --text: #f5f5f7;
-        --sub: #98989d;
-        --border: #38383a;
-        --accent: #2997ff;
-        --secondary-bg: #2c2c2e;
-        --secondary-border: #48484a;
-      }
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+      font-family: -apple-system, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: rgba(0, 0, 0, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .nav-brand img {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+    }
+
+    .nav-brand span {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 980px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.15s;
+      letter-spacing: -0.1px;
+    }
+
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100svh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      text-align: center;
+      padding: 120px 24px 80px;
       position: relative;
-      overflow-x: hidden;
+      overflow: hidden;
     }
-    /* ── Aurora Background ── */
-    .aurora {
-      position: fixed;
+
+    .hero-glow {
+      position: absolute;
       inset: 0;
-      z-index: 0;
       pointer-events: none;
+      z-index: 0;
     }
-    .aurora-orb {
+
+    .glow-orb {
       position: absolute;
       border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.5;
+      filter: blur(100px);
     }
-    .orb1 {
-      width: 500px; height: 380px;
-      background: #0051a8;
-      top: -100px; left: -120px;
-      animation: drift1 14s ease-in-out infinite alternate;
+
+    .glow-1 {
+      width: 600px; height: 400px;
+      background: radial-gradient(circle, rgba(41,151,255,0.18) 0%, transparent 70%);
+      top: 10%; left: 50%;
+      transform: translateX(-50%);
+      animation: pulse-glow 8s ease-in-out infinite alternate;
     }
-    .orb2 {
-      width: 420px; height: 460px;
-      background: #5b0fa8;
-      bottom: -140px; right: -100px;
-      animation: drift2 11s ease-in-out infinite alternate;
+
+    .glow-2 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(100,60,220,0.12) 0%, transparent 70%);
+      bottom: 0; right: -100px;
+      animation: pulse-glow 10s ease-in-out infinite alternate-reverse;
     }
-    .orb3 {
-      width: 320px; height: 320px;
-      background: #006e5a;
-      top: 40%; left: 35%;
-      opacity: 0.35;
-      animation: drift3 16s ease-in-out infinite alternate;
+
+    .glow-3 {
+      width: 400px; height: 300px;
+      background: radial-gradient(circle, rgba(0,200,140,0.08) 0%, transparent 70%);
+      top: 30%; left: -50px;
+      animation: pulse-glow 12s ease-in-out infinite alternate;
     }
-    @keyframes drift1 {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(120px, 80px) scale(1.2); }
+
+    @keyframes pulse-glow {
+      from { opacity: 0.6; transform: translateX(-50%) scale(1); }
+      to   { opacity: 1;   transform: translateX(-50%) scale(1.15); }
     }
-    @keyframes drift2 {
-      from { transform: translate(0, 0); }
-      to   { transform: translate(-100px, -80px) scale(1.1); }
+
+    .glow-2 { animation-name: pulse-glow-2; }
+    @keyframes pulse-glow-2 {
+      from { opacity: 0.5; transform: scale(1); }
+      to   { opacity: 0.9; transform: scale(1.2); }
     }
-    @keyframes drift3 {
-      from { transform: translate(0, 0) scale(1); }
-      to   { transform: translate(60px, -60px) scale(1.3); }
+
+    .glow-3 { animation-name: pulse-glow-3; }
+    @keyframes pulse-glow-3 {
+      from { opacity: 0.4; transform: scale(1); }
+      to   { opacity: 0.8; transform: scale(1.1); }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .aurora-orb { animation: none; }
-    }
-    /* ── Card ── */
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 48px 40px;
-      max-width: 480px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-    .icon {
-      width: 96px;
-      height: 96px;
-      border-radius: 22px;
-      margin: 0 auto 24px;
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-icon {
+      width: 120px;
+      height: 120px;
+      border-radius: 27px;
+      margin: 0 auto 36px;
       display: block;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1);
+      animation: icon-float 6s ease-in-out infinite;
     }
-    h1 {
-      font-size: 36px;
+
+    @keyframes icon-float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+
+    .hero-eyebrow {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.2s forwards;
+    }
+
+    h1.hero-title {
+      font-size: clamp(52px, 9vw, 96px);
       font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 10px;
+      letter-spacing: -0.04em;
+      line-height: 1.02;
+      margin-bottom: 22px;
+      background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.75) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.35s forwards;
     }
-    .tagline {
-      font-size: 17px;
-      color: var(--sub);
-      margin-bottom: 32px;
-      line-height: 1.4;
+
+    .hero-sub {
+      font-size: clamp(19px, 2.5vw, 24px);
+      color: var(--text-2);
+      line-height: 1.45;
+      max-width: 560px;
+      margin: 0 auto 44px;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.5s forwards;
     }
-    .buttons {
+
+    .hero-actions {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fade-up 0.8s ease 0.65s forwards;
     }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      padding: 14px 28px;
+      gap: 8px;
+      padding: 16px 32px;
       border-radius: 980px;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 500;
       text-decoration: none;
       cursor: pointer;
-      transition: opacity 0.15s ease;
+      transition: transform 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
+      letter-spacing: -0.02em;
       border: none;
-      line-height: 1;
     }
-    .btn:hover { opacity: 0.85; }
+
+    .btn:hover { transform: scale(1.02); }
+    .btn:active { transform: scale(0.98); }
+
     .btn-primary {
       background: var(--accent);
-      color: #ffffff;
+      color: #fff;
+      box-shadow: 0 0 0 0 var(--accent-glow);
     }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+      box-shadow: 0 8px 30px var(--accent-glow);
+    }
+
     .btn-secondary {
-      background: var(--secondary-bg);
+      background: rgba(255,255,255,0.1);
       color: var(--text);
-      border: 1px solid var(--secondary-border);
+      border: 1px solid var(--border-2);
+      backdrop-filter: blur(10px);
     }
-    .meta {
-      margin-top: 28px;
+
+    .btn-secondary:hover { background: rgba(255,255,255,0.15); }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-3);
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fade-up 1s ease 1.2s forwards;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(180deg, var(--text-3), transparent);
+      animation: scroll-pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scroll-pulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(0.6); }
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section {
+      padding: 120px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.06;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 0%, rgba(255,255,255,0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-body {
+      font-size: 19px;
+      color: var(--text-2);
+      line-height: 1.55;
+      max-width: 600px;
+      letter-spacing: -0.01em;
+    }
+
+    /* ── TICKER DEMO ── */
+    .ticker-section {
+      text-align: center;
+      padding: 120px 24px;
+    }
+
+    .ticker-section .section-label,
+    .ticker-section .section-title,
+    .ticker-section .section-body {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .ticker-section .section-body { margin-bottom: 56px; }
+
+    .menubar-mock {
+      display: inline-flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(28,28,30,0.9);
+      border: 1px solid var(--border-2);
+      border-radius: 14px;
+      padding: 14px 28px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06);
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      font-family: -apple-system, "SF Pro Text", sans-serif;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 16px;
+      border-right: 1px solid var(--border);
+    }
+
+    .ticker-item:last-child { border-right: none; }
+
+    .ticker-flag { font-size: 18px; line-height: 1; }
+
+    .ticker-label { color: var(--text-2); font-size: 13px; }
+
+    .ticker-time {
+      font-family: -apple-system, "SF Mono", monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    /* ── FEATURES GRID ── */
+    .features-section { padding: 0 24px 120px; }
+
+    .features-header {
+      max-width: 1100px;
+      margin: 0 auto 60px;
+    }
+
+    .features-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .feature-card {
+      background: var(--surface);
+      padding: 40px 36px;
+      position: relative;
+      transition: background 0.2s ease;
+    }
+
+    .feature-card:hover { background: var(--surface-2); }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(41,151,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+
+    .feature-icon svg { width: 22px; height: 22px; }
+
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+
+    /* ── SPLIT SECTION ── */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      padding: 120px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+      .split-section { grid-template-columns: 1fr; gap: 48px; }
+    }
+
+    .split-visual {
+      display: flex;
+      justify-content: center;
+    }
+
+    .widget-mock {
+      width: 260px;
+      background: rgba(28,28,30,0.95);
+      border: 1px solid var(--border-2);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+
+    .widget-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .widget-row:last-child { border-bottom: none; }
+
+    .widget-flag { font-size: 16px; }
+
+    .widget-name {
+      flex: 1;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .widget-diff {
+      font-size: 10px;
+      color: var(--text-3);
+      font-weight: 500;
+    }
+
+    .widget-time {
+      font-family: -apple-system, "SF Mono", monospace;
       font-size: 12px;
-      color: var(--sub);
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .widget-day {
+      font-size: 9px;
+      font-weight: 700;
+      color: #ff9f0a;
+    }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center;
+      padding: 120px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-glow {
+      position: absolute;
+      width: 600px; height: 400px;
+      background: radial-gradient(circle, rgba(41,151,255,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .cta-section .hero-icon {
+      width: 96px; height: 96px;
+      border-radius: 22px;
+      margin-bottom: 28px;
+      animation: icon-float 6s ease-in-out infinite;
+    }
+
+    .cta-section .section-title { margin-bottom: 12px; }
+
+    .cta-meta {
+      font-size: 13px;
+      color: var(--text-3);
+      margin: 28px auto 0;
       line-height: 1.7;
     }
-    .install-note {
-      margin-top: 16px;
-      padding: 12px 16px;
-      background: var(--secondary-bg);
-      border: 1px solid var(--secondary-border);
+
+    .install-tip {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 12px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
       border-radius: 10px;
-      font-size: 12px;
-      color: var(--sub);
-      text-align: left;
+      font-size: 13px;
+      color: var(--text-2);
       line-height: 1.6;
+      max-width: 460px;
     }
-    .install-note strong { color: var(--text); }
+
+    .install-tip strong { color: var(--text); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 24px;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-3);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    @media (max-width: 600px) {
+      .menubar-mock { flex-direction: column; gap: 8px; }
+      .ticker-item { border-right: none; border-bottom: 1px solid var(--border); padding: 8px 16px; }
+      .ticker-item:last-child { border-bottom: none; }
+      nav { padding: 0 16px; }
+    }
   </style>
 </head>
 <body>
-  <div class="aurora" aria-hidden="true">
-    <div class="aurora-orb orb1"></div>
-    <div class="aurora-orb orb2"></div>
-    <div class="aurora-orb orb3"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" href="#">
+      <img src="icon.png" alt="Tymz icon" />
+      <span>Tymz</span>
+    </a>
+    <a class="nav-cta" href="https://github.com/black-purple/tymz/releases/latest/download/tymz.zip" download>
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4.5 7l3.5 3.5L11.5 7M2 12.5h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Download
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-glow" aria-hidden="true">
+      <div class="glow-orb glow-1"></div>
+      <div class="glow-orb glow-2"></div>
+      <div class="glow-orb glow-3"></div>
+    </div>
+    <div class="hero-content">
+      <img class="hero-icon" src="icon.png" alt="Tymz app icon" />
+      <p class="hero-eyebrow">Menu Bar World Clock</p>
+      <h1 class="hero-title">Every timezone.<br>Always there.</h1>
+      <p class="hero-sub">Stop Googling "time in Tokyo." Tymz lives in your menu bar — instant, native, invisible until you need it.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/black-purple/tymz/releases/latest/download/tymz.zip" download>
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4.5 7l3.5 3.5L11.5 7M2 12.5h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download for Mac
+        </a>
+        <a class="btn btn-secondary" href="https://blackpurpledev.gumroad.com/l/tymz" target="_blank" rel="noopener">
+          <svg width="15" height="15" viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5a.75.75 0 0 1 .648.372l1.628 2.748 3.104.627a.75.75 0 0 1 .398 1.238l-2.2 2.334.435 3.13a.75.75 0 0 1-1.05.774L8 11.128l-2.963 1.595a.75.75 0 0 1-1.05-.773l.435-3.13L2.222 6.485a.75.75 0 0 1 .398-1.238l3.104-.627L7.352 1.872A.75.75 0 0 1 8 1.5z"/></svg>
+          Support on Gumroad
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+    </div>
   </div>
 
-  <div class="card">
-    <img class="icon" src="icon.png" alt="Tymz app icon" />
-    <h1>Tymz</h1>
-    <p class="tagline">A native Menu Bar World Clock for macOS.<br>Stop Googling "time in Tokyo".</p>
+  <div class="section-divider"></div>
 
-    <div class="buttons">
-      <a class="btn btn-primary"
-         href="https://github.com/black-purple/tymz/releases/latest/download/tymz.zip"
-         download>
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
-          <path d="M8 1v9M4.5 7l3.5 3.5L11.5 7M2 12.5h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        Download for Mac
-      </a>
-      <a class="btn btn-secondary"
-         href="https://blackpurpledev.gumroad.com/l/tymz"
-         target="_blank"
-         rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0">
-          <path d="M8 1.5a.75.75 0 0 1 .648.372l1.628 2.748 3.104.627a.75.75 0 0 1 .398 1.238l-2.2 2.334.435 3.13a.75.75 0 0 1-1.05.774L8 11.128l-2.963 1.595a.75.75 0 0 1-1.05-.773l.435-3.13L2.222 6.485a.75.75 0 0 1 .398-1.238l3.104-.627L7.352 1.872A.75.75 0 0 1 8 1.5z"/>
-        </svg>
-        Support on Gumroad
-      </a>
+  <!-- TICKER DEMO -->
+  <section class="ticker-section reveal">
+    <p class="section-label">Menu Bar Ticker</p>
+    <h2 class="section-title">Your clocks.<br>Right where you look.</h2>
+    <p class="section-body">See every time zone you care about directly in your menu bar. Switch to icon mode for a clean bar — click anytime to expand your full list.</p>
+    <div class="menubar-mock" aria-label="Menu bar ticker preview">
+      <div class="ticker-item">
+        <span class="ticker-flag">🇫🇷</span>
+        <span class="ticker-label">Paris</span>
+        <span class="ticker-time" id="t-paris">2:14 PM</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-flag">🇯🇵</span>
+        <span class="ticker-label">Tokyo</span>
+        <span class="ticker-time" id="t-tokyo">10:14 PM</span>
+      </div>
+      <div class="ticker-item">
+        <span class="ticker-flag">🇺🇸</span>
+        <span class="ticker-label">New York</span>
+        <span class="ticker-time" id="t-ny">8:14 AM</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- FEATURES GRID -->
+  <div class="features-section">
+    <div class="features-header reveal">
+      <p class="section-label">Features</p>
+      <h2 class="section-title">Built for the way<br>you actually work.</h2>
     </div>
 
-    <div class="meta">
-      macOS 14.6 (Sonoma) or later &nbsp;&middot;&nbsp; Apple Silicon &amp; Intel
-    </div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <h3>Smart Search</h3>
+        <p>Find any city, country, or timezone abbreviation. PST, CET, JST — all instantly searchable.</p>
+      </div>
 
-    <div class="install-note">
-      <strong>First launch:</strong> Right-click (or Control-click) the app and select <strong>Open</strong>, then click <strong>Open</strong> in the dialog. You only need to do this once.
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 6h16M4 12h16M4 18h7"/>
+          </svg>
+        </div>
+        <h3>Drag to Reorder</h3>
+        <p>Put your most important time zones first. Arrange any way you want, instantly.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+          </svg>
+        </div>
+        <h3>Rename Clocks</h3>
+        <p>Give any clock a personal label. "Home", "The Client", "Mum" — you decide what matters.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-3">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+          </svg>
+        </div>
+        <h3>Notification Widget</h3>
+        <p>Large Notification Center widget shows all clocks at a glance — including next-day indicators.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-1">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+        </div>
+        <h3>Launch at Login</h3>
+        <p>Tymz starts with your Mac. Your world clock is always ready, zero friction.</p>
+      </div>
+
+      <div class="feature-card reveal reveal-delay-2">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+        </div>
+        <h3>Automatic Updates</h3>
+        <p>Sparkle-powered updates keep Tymz current. Check from the right-click menu anytime.</p>
+      </div>
     </div>
   </div>
+
+  <div class="section-divider"></div>
+
+  <!-- WIDGET SPLIT -->
+  <div class="split-section">
+    <div class="split-text reveal">
+      <p class="section-label">Widget</p>
+      <h2 class="section-title">All your clocks.<br>One glance.</h2>
+      <p class="section-body">Add the Tymz widget to your desktop or Notification Center. See every clock with time offsets and next-day indicators — no clicks needed.</p>
+    </div>
+    <div class="split-visual reveal reveal-delay-2">
+      <div class="widget-mock">
+        <div class="widget-row">
+          <span class="widget-flag">🇫🇷</span>
+          <span class="widget-name">Paris</span>
+          <span class="widget-diff">+6 hrs</span>
+          <span class="widget-time" id="w-paris">2:14 PM</span>
+        </div>
+        <div class="widget-row">
+          <span class="widget-flag">🇯🇵</span>
+          <span class="widget-name">Tokyo</span>
+          <span class="widget-diff">+14 hrs</span>
+          <span class="widget-day">+1d</span>
+          <span class="widget-time" id="w-tokyo">10:14 PM</span>
+        </div>
+        <div class="widget-row">
+          <span class="widget-flag">🇬🇧</span>
+          <span class="widget-name">London</span>
+          <span class="widget-diff">+5 hrs</span>
+          <span class="widget-time" id="w-london">1:14 PM</span>
+        </div>
+        <div class="widget-row">
+          <span class="widget-flag">🇦🇺</span>
+          <span class="widget-name">Sydney</span>
+          <span class="widget-diff">+16 hrs</span>
+          <span class="widget-day">+1d</span>
+          <span class="widget-time" id="w-sydney">12:14 AM</span>
+        </div>
+        <div class="widget-row">
+          <span class="widget-flag">🇺🇸</span>
+          <span class="widget-name">New York</span>
+          <span class="widget-diff">−5 hrs</span>
+          <span class="widget-time" id="w-ny">8:14 AM</span>
+        </div>
+        <div class="widget-row">
+          <span class="widget-flag">🇧🇷</span>
+          <span class="widget-name">São Paulo</span>
+          <span class="widget-diff">−3 hrs</span>
+          <span class="widget-time" id="w-sp">10:14 AM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <div class="cta-glow" aria-hidden="true"></div>
+    <img class="hero-icon" src="icon.png" alt="Tymz" style="position:relative;z-index:1" />
+    <p class="section-label" style="position:relative;z-index:1">Free to download</p>
+    <h2 class="section-title" style="position:relative;z-index:1">Stop Googling.<br>Start knowing.</h2>
+    <div class="hero-actions" style="margin-top:36px;position:relative;z-index:1">
+      <a class="btn btn-primary" href="https://github.com/black-purple/tymz/releases/latest/download/tymz.zip" download>
+        <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4.5 7l3.5 3.5L11.5 7M2 12.5h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download for Mac — Free
+      </a>
+      <a class="btn btn-secondary" href="https://blackpurpledev.gumroad.com/l/tymz" target="_blank" rel="noopener">Support on Gumroad</a>
+    </div>
+    <p class="cta-meta" style="position:relative;z-index:1">macOS 14.6 Sonoma or later &nbsp;·&nbsp; Apple Silicon &amp; Intel &nbsp;·&nbsp; v1.1</p>
+    <div class="install-tip" style="position:relative;z-index:1">
+      <strong>First launch:</strong> Right-click the app and select <strong>Open</strong>, then click <strong>Open</strong> in the dialog. You only need to do this once.
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-links">
+        <a href="https://github.com/black-purple/tymz/releases" target="_blank" rel="noopener">Releases</a>
+        <a href="https://blackpurpledev.gumroad.com/l/tymz" target="_blank" rel="noopener">Gumroad</a>
+        <a href="https://github.com/black-purple" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p>Copyright &copy; 2025 black-purple. Tymz is free software.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Live clock update
+    function fmt(date, tz) {
+      return date.toLocaleTimeString('en-US', {
+        timeZone: tz,
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      });
+    }
+
+    function updateClocks() {
+      const now = new Date();
+      const zones = [
+        { ids: ['t-paris','w-paris'],   tz: 'Europe/Paris' },
+        { ids: ['t-tokyo','w-tokyo'],   tz: 'Asia/Tokyo' },
+        { ids: ['t-ny','w-ny'],         tz: 'America/New_York' },
+        { ids: ['w-london'],            tz: 'Europe/London' },
+        { ids: ['w-sydney'],            tz: 'Australia/Sydney' },
+        { ids: ['w-sp'],                tz: 'America/Sao_Paulo' },
+      ];
+      zones.forEach(({ ids, tz }) => {
+        const t = fmt(now, tz);
+        ids.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = t;
+        });
+      });
+    }
+
+    updateClocks();
+    setInterval(updateClocks, 1000);
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
